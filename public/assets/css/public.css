@@ -1,0 +1,21 @@
+/* This stylesheet is used to style the public-facing components of the plugin. */
+
+.simple-shots {
+	margin: 0;
+	padding: 0;
+}
+
+.simple-shots li {
+	list-style-type: none;
+	margin: 0 20px 20px 0;
+}
+
+.simple-shots a { 
+	max-width: 400px; 
+}
+
+.simple-shots img {
+	height: auto;
+	max-width: 100%;
+	width: auto;
+}
