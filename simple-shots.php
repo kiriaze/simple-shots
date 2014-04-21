@@ -1,25 +1,19 @@
 <?php
-/**
- *
- * @package   Simple_Shots
- * @author    Constantine Kiriaze <hello@kiriaze.com>
- * @license   GPL-2.0+
- * @link      http://getsimple.io
- * @copyright 2013 Simple
- *
- * @wordpress-plugin
- * Plugin Name:       Simple shots
- * Plugin URI:        http://getsimple.io
- * Description:       Provides a shortcode and widget for displaying your most recent Dribbble shots. [shots player="" shots=""]
- * Version:           1.0.0
- * Author:            Constantine Kiriaze
- * Author URI:        kiriaze.com
- * Text Domain:       simple-shots
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Domain Path:       /languages
- * GitHub Plugin URI: https://github.com/
- */
+/*
+Plugin Name:     Simple Shots
+Plugin URI:      https://github.com/kiriaze/simple-shots
+Description:     Provides a shortcode and widget for displaying your most recent Dribbble shots. [shots player="" shots=""]
+Version:         1.0.6
+Author:          Constantine Kiriaze (@kiriaze)
+Author URI:      http://getsimple.io/about
+License:         GNU General Public License v2 or later
+License URI:     http://www.gnu.org/licenses/gpl-2.0.html
+Copyright:       (c) 2013, Constantine Kiriaze
+Text Domain:     simple
+GitHub Plugin URI: https://github.com/kiriaze/simple-shots
+GitHub Branch:     master
+*/
+
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
