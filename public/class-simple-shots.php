@@ -270,7 +270,7 @@ class Simple_Shots {
 	        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	        curl_setopt($ch, CURLOPT_HEADER, 0);
 	        curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0);
-	        curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, 0); 
+	        curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	        $output = curl_exec($ch);
 	        echo curl_error($ch);
 	        curl_close($ch);
@@ -282,6 +282,7 @@ class Simple_Shots {
 	}
 
 	public function shortcode( $atts ) {
+
 		extract( shortcode_atts( array(
 			'player' 	=> '',
 			'shots' 	=> 5
@@ -291,7 +292,7 @@ class Simple_Shots {
 	}
 
 	public function do_simple_shots( $player, $shots ) {
-		
+
 		$url = 'http://api.dribbble.com/players/' . $player . '/shots/?per_page=' . $shots . '';
 
 		$cache = dirname(__FILE__) . '/cache.json';
@@ -307,7 +308,7 @@ class Simple_Shots {
 		    $images = array();
 
 		    if( $response ) {
-		    	
+
 		    	$data = json_decode($response)->shots;
 
 		        // Decode the response and build an array
@@ -341,7 +342,7 @@ class Simple_Shots {
 		// sp($images);
 
 		$output = '<ul class="simple-shots">';
-			
+
 		foreach( $images as $image ) {
 
 			$output .= '<li class="simple-shot">';
@@ -349,7 +350,7 @@ class Simple_Shots {
 			$output .= '<img height="' . $image['height'] . '" width="' . $image['width'] . '" src="' . $image['src'] . '" alt="'.$image['title'].'" />';
 			$output .= '</a>';
 			$output .= '</li>';
-			
+
 		}
 
 		$output .= '</ul>';
@@ -379,11 +380,11 @@ class Simple_Shots_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 	 		'simple_shots', // BASE ID
-			'Dribbble Shots (Simple)', // NAME
+			'SimpleShots', // NAME
 			array( 'description' => __( 'A widget that displays your Dribbble shots', 'simple' ), )
 		);
 	}
-	
+
 
 	/*--------------------------------------------------*/
 	/* Widget API Functions
@@ -395,7 +396,7 @@ class Simple_Shots_Widget extends WP_Widget {
 	 * @args			The array of form elements
 	 * @instance		The current instance of the widget
 	 */
-	 
+
 	function widget( $args, $instance ) {
 
 		extract( $args, EXTR_SKIP );
@@ -407,14 +408,14 @@ class Simple_Shots_Widget extends WP_Widget {
 		$shots 		= $instance['shots'];
 
 		echo $before_widget;
-			
+
 		if ( !empty( $title ) ) echo $before_title . $title . $after_title;
-		
+
 		$plugin = Simple_Shots::get_instance();
 		echo $plugin->do_simple_shots( esc_attr($account), esc_attr($shots) );
-		
+
 		echo $after_widget;
-		
+
 	} // END WIDGET
 
 	/**
@@ -423,25 +424,25 @@ class Simple_Shots_Widget extends WP_Widget {
 	 * @new_instance	The previous instance of values before the update.
 	 * @old_instance	The new instance of values to be generated via the update.
 	 */
-	 
+
 	function update( $new_instance, $old_instance ) {
-		
+
 		// STRIP TAGS TO REMOVE HTML - IMPORTANT FOR TEXT IMPUTS
 		$instance 				= $old_instance;
 		$instance['title'] 		= strip_tags($new_instance['title']);
 		$instance['account'] 	= trim($new_instance['account']);
 		$instance['shots'] 		= trim($new_instance['shots']);
 		$instance['cache'] 		= trim($new_instance['cache']);
-		
+
 		return $instance;
-		
+
 	}
 
 	/**
 	 * GENERATES THE ADMIN FORM FOR THE WIDGET
 	 * @instance
 	 */
-	 
+
 	function form( $instance ) {
 
 		// WIDGET DEFAULTS
@@ -459,17 +460,17 @@ class Simple_Shots_Widget extends WP_Widget {
 		$cache 		= $instance['cache'];
 
 		?>
-		
+
 		<p>
 			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'simple'); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
-		
+
 		<p>
 			<label for="<?php echo $this->get_field_id('account'); ?>"><?php _e('<a href="http://www.dribbble.com/constantine">Dribbble</a> account:', 'simple'); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id('account'); ?>" name="<?php echo $this->get_field_name('account'); ?>" type="text" value="<?php echo $account; ?>" />
 		</p>
-		
+
 		<p>
 			<label for="<?php echo $this->get_field_id('shots'); ?>"><?php _e('Number of Shots:', 'simple'); ?></label>
 			<select name="<?php echo $this->get_field_name('shots'); ?>">
@@ -483,9 +484,9 @@ class Simple_Shots_Widget extends WP_Widget {
 			<label for="<?php echo $this->get_field_id('cache'); ?>"><?php _e('Cache:', 'simple'); ?> (Coming Soon!)</label>
 			<input class="widefat" id="<?php echo $this->get_field_id('cache'); ?>" name="<?php echo $this->get_field_name('cache'); ?>" type="text" value="<?php echo $cache; ?>" />
 		</p>
-		
+
 	<?php
-		
+
 	} // END FORM
 
 } // END CLASS
